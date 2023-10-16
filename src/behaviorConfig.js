@@ -2,7 +2,7 @@
 module.exports = {
   addonType: "behavior",
   id: "mikal_rotate_shape",
-  name: "rotate_shape",
+  name: "Rotate 3D",
   version: "1.1.0",
   category:
     "movements",
@@ -175,62 +175,5 @@ module.exports = {
       params: [],
       description: "Get the Z center offset",
     },
-    /*
-    SampleExpression: {
-      // The category of the action as it appears in the expression picker
-      category: "general",
-
-      // Forward to the instance function name
-      forward: "_SampleAction",
-      // Or specify a handler function
-      handler: `function () {
-        // Your code here
-      }`,
-
-      // Set to true to automatically generate a script interface for this expression
-      // Cases where you might not want this are:
-      // 1- If you don't want it to appear in the script interface
-      // 2- If the script interface has a better way to achieve the same thing
-      autoScriptInterface: true,
-
-      // Set to true to highlight the expression in the expression picker
-      highlight: true,
-
-      // Set to true to hide the expression in the interface. False by default if not specified.
-      deprecated: false,
-
-      // The type of the expression.
-      returnType:
-        - "string"
-        - "number"
-        - "any" // must be either string or number
-
-      // Set to true if the expression is variadic. False by default if not specified.
-      isVariadicParameters: false
-
-      // list of parameters
-      params: [
-        {
-          // The id of the parameter. This is used to generate the script interface.
-          // It must be unique for each parameter.
-          id: "param1",
-          // The name of the parameter.
-          name: "Param 1",
-          // The description of the parameter.
-          desc: "The first parameter",
-
-          // The type of the parameter.
-          type:
-            // The following types can take a default value AND be automatically generated in the script interface
-            - "string"
-            - "number"
-            - "any"
-        },
-      ],
-
-      // The description of the expression as it appears in the expression picker
-      description: "This is a sample expression",
-    },
-    */
   },
 };
