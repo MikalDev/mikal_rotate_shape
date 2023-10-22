@@ -3,7 +3,7 @@ module.exports = {
   addonType: "behavior",
   id: "mikal_rotate_shape",
   name: "Rotate 3D",
-  version: "1.1.0",
+  version: "1.3.0",
   category:
     "movements",
   author: "mikal",
@@ -98,6 +98,42 @@ module.exports = {
       listName: "Set center offset",
       displayText: "{my}: Set center offset [i]{0}, {1}, {2}[/i]",
       description: "Set center offset",
+    },
+    // Create a new action set x,y,z scaling
+    SetScale: {
+      // The category of the action as it appears in the add action dialog
+      category: "general",
+      forward: "_SetScale",
+      autoScriptInterface: true,
+      highlight: true,
+      deprecated: false,
+      isAsync: false,
+      params: [
+        {
+          id: "scale-x",
+          name: "Scale x",
+          desc: "X scale",
+          type: "number",
+          value: 1,
+        },
+        {
+          id: "scale-y",
+          name: "Scale y",
+          desc: "Y scale",
+          type: "number",
+          value: 1,
+        },
+        {
+          id: "scale-z",
+          name: "Scale z",
+          desc: "Z scale",
+          type: "number",
+          value: 1,
+        },
+      ],
+      listName: "Set scale",
+      displayText: "{my}: Set scale [i]{0}, {1}, {2}[/i]",
+      description: "Set scale",
     }
   },
   Cnds: {
@@ -175,5 +211,42 @@ module.exports = {
       params: [],
       description: "Get the Z center offset",
     },
+    // Add expressions for getting x,y,z scaling
+    ScaleX: {
+      // The category of the action as it appears in the expression picker
+      category: "general",
+      forward: "_ScaleX",
+      autoScriptInterface: true,
+      highlight: true,
+      deprecated: false,
+      isVariadicParameters: false,
+      returnType: "number",
+      params: [],
+      description: "Get the X scale",
+    },
+    ScaleY: {
+      // The category of the action as it appears in the expression picker
+      category: "general",
+      forward: "_ScaleY",
+      autoScriptInterface: true,
+      highlight: true,
+      deprecated: false,
+      isVariadicParameters: false,
+      returnType: "number",
+      params: [],
+      description: "Get the Y scale",
+    },
+    ScaleZ: {
+      // The category of the action as it appears in the expression picker
+      category: "general",
+      forward: "_ScaleZ",
+      autoScriptInterface: true,
+      highlight: true,
+      deprecated: false,
+      isVariadicParameters: false,
+      returnType: "number",
+      params: [],
+      description: "Get the Z scale",
+    }
   },
 };

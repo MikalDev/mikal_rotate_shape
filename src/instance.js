@@ -8,6 +8,9 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
       this._xOffset = 0;
       this._yOffset = 0;
       this._zOffset = 0;
+      this._xScale = 1;
+      this._yScale = 1;
+      this._zScale = 1;
 
       // Monkey patch draw
       this._inst._oldDraw = this._inst.Draw;
@@ -26,6 +29,9 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
         const xOff = behInst._sdkInst._xOffset;
         const yOff = behInst._sdkInst._yOffset;
         const zOff = behInst._sdkInst._zOffset;
+        const xScale = behInst._sdkInst._xScale;
+        const yScale = behInst._sdkInst._yScale;
+        const zScale = behInst._sdkInst._zScale;
 
         const rotate = quat.create();
         quat.fromEuler(rotate, xAngle, yAngle, zAngle);
@@ -39,7 +45,7 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
           zHeight = 0;
         }
         // mat4.fromRotationTranslationScale(modelRotate, rotate, [0,0,0], [1,1,1]);
-        mat4.fromRotationTranslationScaleOrigin(modelRotate, rotate, [0,0,0], [1,1,1], [x,y,z+zHeight/2]);
+        mat4.fromRotationTranslationScaleOrigin(modelRotate, rotate, [0,0,0], [xScale, yScale, zScale], [x,y,z+zHeight/2]);
        // mat4.copy(modelRotate, modelRotate);
         mat4.multiply(modelRotate, tmpModelView, modelRotate);
         renderer.SetModelViewMatrix(modelRotate);
@@ -53,6 +59,15 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
 
     Release() {
       super.Release();
+      this._xAngle = null
+      this._yAngle = null
+      this._zAngle = null
+      this._xOffset = null;
+      this._yOffset = null;
+      this._zOffset = null;
+      this._xScale = null;
+      this._yScale = null;
+      this._zScale = null;
     }
 
     SaveToJson() {
@@ -90,6 +105,12 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
       this._zOffset = z;
     }
 
+    _SetScale(x, y, z) {
+      this._xScale = x;
+      this._yScale = y;
+      this._zScale = z;
+    }
+
     _xOffset() {
       return this._xOffset;
     }
@@ -112,6 +133,17 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
 
     _zAngle() {
       return this._zAngle;
+    }
+
+    // expression x,y,z scale
+    _xScale() {
+      return this._xScale;
+    }
+    _yScale() {
+      return this._yScale;
+    }
+    _zScale() {
+      return this._zScale;
     }
 
     GetScriptInterfaceClass() {
