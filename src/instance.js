@@ -2,15 +2,27 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
   return class extends parentClass {
     constructor(inst, properties) {
       super(inst);
-      this._xAngle = 0
-      this._yAngle = 0
-      this._zAngle = 0
-      this._xOffset = 0;
-      this._yOffset = 0;
-      this._zOffset = 0;
-      this._xScale = 1;
-      this._yScale = 1;
-      this._zScale = 1;
+      if (properties) {
+        this._xAngle = properties[0];
+        this._yAngle = properties[1];
+        this._zAngle = properties[2];
+        this._xOffset = properties[3];
+        this._yOffset = properties[4];
+        this._zOffset = properties[5];
+        this._xScale = properties[6];
+        this._yScale = properties[7];
+        this._zScale = properties[8];
+      } else {
+        this._xAngle = 0
+        this._yAngle = 0
+        this._zAngle = 0
+        this._xOffset = 0;
+        this._yOffset = 0;
+        this._zOffset = 0;
+        this._xScale = 1;
+        this._yScale = 1;
+        this._zScale = 1;
+      }
 
       // Monkey patch draw
       this._inst._oldDraw = this._inst.Draw;

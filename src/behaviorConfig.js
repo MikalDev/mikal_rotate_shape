@@ -3,7 +3,7 @@ module.exports = {
   addonType: "behavior",
   id: "mikal_rotate_shape",
   name: "Rotate 3D",
-  version: "1.3.0",
+  version: "1.4.0",
   category:
     "movements",
   author: "mikal",
@@ -23,6 +23,87 @@ module.exports = {
     },
   },
   properties: [
+    {
+      name: "Angle X",
+      desc: "X axis angle",
+      type: "float",
+      id: "angle-x",
+      options : {
+        initialValue: 0,
+      }
+    },
+    {
+      name: "Angle Y",
+      desc: "Y axis angle",
+      type: "float",
+      id: "angle-y",
+      options : {
+        initialValue: 0,
+      }
+    },
+    {
+      name: "Angle Z",
+      desc: "Z axis angle",
+      type: "float",
+      id: "angle-z",
+      options : {
+        initialValue: 0,
+      }
+    },
+    {
+      name: "Offset X",
+      desc: "X center offset",
+      type: "float",
+      id: "offset-x",
+      options : {
+        initialValue: 0,
+      }
+    },
+    {
+      name: "Offset Y",
+      desc: "Y center offset",
+      type: "float",
+      id: "offset-y",
+      options : {
+        initialValue: 0,
+      }
+    },
+    {
+      name: "Offset Z",
+      desc: "Z center offset",
+      type: "float",
+      id: "offset-z",
+      options : {
+        initialValue: 0,
+      }
+    },
+    {
+      name: "Scale X",
+      desc: "X scale",
+      type: "float",
+      id: "scale-x",
+      options : {
+        initialValue: 1,
+      }
+    },
+    {
+      name: "Scale Y",
+      desc: "Y scale",
+      type: "float",
+      id: "scale-y",
+      options : {
+        initialValue: 1,
+      }
+    },
+    {
+      name: "Scale Z",
+      desc: "Z scale",
+      type: "float",
+      id: "scale-z",
+      options : {
+        initialValue: 1,
+      }
+    }
   ],
   aceCategories: {
     general: "General",
