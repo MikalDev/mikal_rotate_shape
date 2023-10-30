@@ -51,11 +51,10 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
         const yScale = behInst._sdkInst._yScale;
         const zScale = behInst._sdkInst._zScale;
 
-        let rotate = null;
+        let rotate = quat.create();
         if (behInst._sdkInst._useQuaternion) {
-          rotate = behInst._sdkInst._quaternion;
+          quat.copy(rotate ,behInst._sdkInst._quaternion)
         } else {
-          rotate = quat.create();
           quat.fromEuler(rotate, xAngle, yAngle, zAngle);
         }
         const x = wi.GetX()+xOff;
@@ -70,6 +69,7 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
 
         // mat4.fromRotationTranslationScale(modelRotate, rotate, [0,0,0], [1,1,1]);
         if (behInst._sdkInst._useQuaternion) {
+          debugger;
           const rotZ = quat.create();
           quat.fromEuler(rotZ, 0, 0, -zAngle)
           quat.multiply(rotate, rotate, rotZ)
