@@ -24,6 +24,10 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
         this._zScale = 1;
       }
 
+      const quat = globalThis.glMatrix.quat;
+      this._quaternion = quat.create();
+      this._useQuaternion = false;
+
       // Monkey patch draw
       this._inst._oldDraw = this._inst.Draw;
       this._inst.Draw = function (renderer) {
@@ -33,6 +37,8 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
         const quat = glMatrix.quat;
         const tmpModelView = mat4.create();
         const modelRotate = mat4.create();
+        const wi = this.GetWorldInfo();
+
         mat4.copy(tmpModelView, renderer._matMV);
         // Get behavior instance data
         const xAngle = behInst._sdkInst._xAngle;
@@ -45,18 +51,30 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
         const yScale = behInst._sdkInst._yScale;
         const zScale = behInst._sdkInst._zScale;
 
-        const rotate = quat.create();
-        quat.fromEuler(rotate, xAngle, yAngle, zAngle);
-        const x = this.GetWorldInfo().GetX()+xOff;
-        const y = this.GetWorldInfo().GetY()+yOff;
-        const z = this.GetWorldInfo().GetZElevation()+zOff;
-        const width = this.GetWorldInfo().GetWidth();
-        const height = this.GetWorldInfo().GetHeight();
+        let rotate = null;
+        if (behInst._sdkInst._useQuaternion) {
+          rotate = behInst._sdkInst._quaternion;
+        } else {
+          rotate = quat.create();
+          quat.fromEuler(rotate, xAngle, yAngle, zAngle);
+        }
+        const x = wi.GetX()+xOff;
+        const y = wi.GetY()+yOff;
+        const z = wi.GetZElevation()+zOff;
+        const width = wi.GetWidth();
+        const height = wi.GetHeight();
         let zHeight = this._sdkInst._zHeight;
         if (!zHeight) {
           zHeight = 0;
         }
+
         // mat4.fromRotationTranslationScale(modelRotate, rotate, [0,0,0], [1,1,1]);
+        if (behInst._sdkInst._useQuaternion) {
+          const rotZ = quat.create();
+          quat.fromEuler(rotZ, 0, 0, -zAngle)
+          quat.multiply(rotate, rotate, rotZ)
+        }
+
         mat4.fromRotationTranslationScaleOrigin(modelRotate, rotate, [0,0,0], [xScale, yScale, zScale], [x,y,z+zHeight/2]);
        // mat4.copy(modelRotate, modelRotate);
         mat4.multiply(modelRotate, tmpModelView, modelRotate);
@@ -111,6 +129,11 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
       this._zAngle = zAngle;
     }
 
+    _SetRotationAnglesXY(xAngle, yAngle) {
+      this._xAngle = xAngle;
+      this._yAngle = yAngle;
+    }
+
     _SetCenterOffset(x, y, z) {
       this._xOffset = x;
       this._yOffset = y;
@@ -135,15 +158,15 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
       return this._zOffset;
     }
 
-    _xAngle() {
+    _AngleX() {
       return this._xAngle;
     }
 
-    _yAngle() {
+    _AngleY() {
       return this._yAngle;
     }
 
-    _zAngle() {
+    _AngleZ() {
       return this._zAngle;
     }
 

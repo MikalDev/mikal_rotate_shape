@@ -3,7 +3,7 @@ module.exports = {
   addonType: "behavior",
   id: "mikal_rotate_shape",
   name: "Rotate 3D",
-  version: "1.4.0",
+  version: "1.5.0",
   category:
     "movements",
   author: "mikal",
@@ -143,6 +143,35 @@ module.exports = {
       listName: "Set rotation angles",
       displayText: "{my}: Set rotation angles [i]{0}, {1}, {2}[/i]",
       description: "Set rotation angles",
+    },
+    // Create a new action for Setting Rotation angles X, Y only
+    SetRotationAnglesXY: {
+      // The category of the action as it appears in the add action dialog
+      category: "general",
+      forward: "_SetRotationAnglesXY",
+      autoScriptInterface: true,
+      highlight: true,
+      deprecated: true,
+      isAsync: false,
+      params: [
+        {
+          id: "angle-x",
+          name: "Angle x",
+          desc: "X axis angle",
+          type: "number",
+          value: 0,
+        },
+        {
+          id: "angle-y",
+          name: "Angle y",
+          desc: "Y axis angle",
+          type: "number",
+          value: 0,
+        },
+      ],
+      listName: "Set rotation angles XY",
+      displayText: "{my}: Set rotation angles XY [i]{0}, {1}[/i]",
+      description: "Set rotation angles XY",
     },
     // Create a new action for Setting Center Offset
     SetCenterOffset: {
