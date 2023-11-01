@@ -69,7 +69,6 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
 
         // mat4.fromRotationTranslationScale(modelRotate, rotate, [0,0,0], [1,1,1]);
         if (behInst._sdkInst._useQuaternion) {
-          debugger;
           const rotZ = quat.create();
           quat.fromEuler(rotZ, 0, 0, -zAngle)
           quat.multiply(rotate, rotate, rotZ)
@@ -180,6 +179,41 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
     _zScale() {
       return this._zScale;
     }
+
+    _Quaternion() {
+      if (this._useQuaternion) return JSON.stringify(this._quaternion)
+      return JSON.stringify([0,0,0,1])
+    }
+
+    _quaternionToEuler(quat) {
+      // XYZ
+      // Quaternion components
+      const q0 = quat[3];
+      const q1 = quat[0];
+      const q2 = quat[1];
+      const q3 = quat[2];
+    
+      // Roll (z-axis rotation)
+      const sinr_cosp = 2 * (q0 * q3 + q1 * q2);
+      const cosr_cosp = 1 - 2 * (q2 * q2 + q3 * q3);
+      const roll = Math.atan2(sinr_cosp, cosr_cosp);
+    
+      // Pitch (x-axis rotation)
+      const sinp = 2 * (q0 * q1 - q2 * q3);
+      let pitch;
+      if (Math.abs(sinp) >= 1) {
+        pitch = Math.copySign(Math.PI / 2, sinp); // Use 90 degrees if out of range
+      } else {
+        pitch = Math.asin(sinp);
+      }
+    
+      // Yaw (y-axis rotation)
+      const siny_cosp = 2 * (q0 * q2 + q3 * q1);
+      const cosy_cosp = 1 - 2 * (q1 * q1 + q2 * q2);
+      const yaw = Math.atan2(siny_cosp, cosy_cosp);
+    
+      return [pitch, yaw, roll]; // Returns Euler angles in radians
+    }   
 
     GetScriptInterfaceClass() {
       return scriptInterface;

@@ -3,7 +3,7 @@ module.exports = {
   addonType: "behavior",
   id: "mikal_rotate_shape",
   name: "Rotate 3D",
-  version: "1.5.1",
+  version: "1.6.0",
   category:
     "movements",
   author: "mikal",
@@ -357,6 +357,18 @@ module.exports = {
       returnType: "number",
       params: [],
       description: "Get the Z scale",
+    },
+    Quaternion: {
+      // The category of the action as it appears in the expression picker
+      category: "general",
+      forward: "_Quaternion",
+      autoScriptInterface: true,
+      highlight: true,
+      deprecated: false,
+      isVariadicParameters: false,
+      returnType: "string",
+      params: [],
+      description: "Get the quaternion as JSON string",
     }
   },
 };
