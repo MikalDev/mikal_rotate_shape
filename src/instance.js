@@ -126,23 +126,27 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
       this._xAngle = xAngle;
       this._yAngle = yAngle;
       this._zAngle = zAngle;
+      this._inst.GetRuntime().UpdateRender();
     }
 
     _SetRotationAnglesXY(xAngle, yAngle) {
       this._xAngle = xAngle;
       this._yAngle = yAngle;
+      this._inst.GetRuntime().UpdateRender();
     }
 
     _SetCenterOffset(x, y, z) {
       this._xOffset = x;
       this._yOffset = y;
       this._zOffset = z;
+      this._inst.GetRuntime().UpdateRender();
     }
 
     _SetScale(x, y, z) {
       this._xScale = x;
       this._yScale = y;
       this._zScale = z;
+      this._inst.GetRuntime().UpdateRender();
     }
 
     _xOffset() {
