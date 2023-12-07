@@ -3,7 +3,7 @@ module.exports = {
   addonType: "behavior",
   id: "mikal_rotate_shape",
   name: "Rotate 3D",
-  version: "1.6.1",
+  version: "1.9.0",
   category:
     "movements",
   author: "mikal",
@@ -244,7 +244,86 @@ module.exports = {
       listName: "Set scale",
       displayText: "{my}: Set scale [i]{0}, {1}, {2}[/i]",
       description: "Set scale",
-    }
+    },
+    RotateTowardsPosition: {
+      // The category of the action as it appears in the add action dialog
+      category: "general",
+      forward: "_RotateTowardsPosition",
+      autoScriptInterface: true,
+      highlight: true,
+      deprecated: false,
+      isAsync: false,
+      params: [
+        {
+          id: "x",
+          name: "X",
+          desc: "X position",
+          type: "number",
+          value: 0,
+        },
+        {
+          id: "y",
+          name: "Y",
+          desc: "Y position",
+          type: "number",
+          value: 0,
+        },
+        {
+          id: "z",
+          name: "Z",
+          desc: "Z position",
+          type: "number",
+          value: 0,
+        },
+        // obj angle
+        {
+          id: "angle-x",
+          name: "Object Angle X",
+          desc: "Object X axis angle",
+          type: "number",
+          value: 0,
+        },
+        {
+          id: "angle-y",
+          name: "Object Angle Y",
+          desc: "Object Y axis angle",
+          type: "number",
+          value: 0,
+        },
+        {
+          id: "angle-z",
+          name: "Object Angle Z",
+          desc: "Z axis angle",
+          type: "number",
+          value: 0,
+        },
+        // up vector
+        {
+          id: "up-x",
+          name: "Up X",
+          desc: "Up X",
+          type: "number",
+          value: 0,
+        },
+        {
+          id: "up-y",
+          name: "Up Y",
+          desc: "Up Y",
+          type: "number",
+          value: 0,
+        },
+        {
+          id: "up-z",
+          name: "Up Z",
+          desc: "Up Z",
+          type: "number",
+          value: 1,
+        },
+      ],
+      listName: "Rotate towards position",
+      displayText: "{my}: Rotate towards position [i]{0}, {1}, {2}[/i], object angle [i]{3}, {4}, {5}[/i] up: [i]{6}, {7}, {8}[/i]",
+      description: "Rotate towards position",
+    },
   },
   Cnds: {
   },

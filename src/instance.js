@@ -217,7 +217,36 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
       const yaw = Math.atan2(siny_cosp, cosy_cosp);
     
       return [pitch, yaw, roll]; // Returns Euler angles in radians
-    }   
+    }
+
+    _RotateTowardsPosition(x, y, z, objXAngle, objYAngle, objZAngle, upX, upY, upZ ) {
+      const glMatrix = globalThis.glMatrix;
+      const mat4 = glMatrix.mat4;
+      const quat = glMatrix.quat;
+      const vec3 = glMatrix.vec3;
+      const target = vec3.fromValues(x,y,z);
+      const posX = this._inst.GetWorldInfo().GetX();
+      const posY = this._inst.GetWorldInfo().GetY();
+      const posZ = this._inst.GetWorldInfo().GetZElevation();
+      const pos = vec3.fromValues(posX, posY, posZ);
+      const targetMat = mat4.create();
+      const upVec = vec3.fromValues(upX, upY, upZ);
+      mat4.targetTo(targetMat, pos, target, upVec);
+      const targetQuat = quat.create();
+      mat4.getRotation(targetQuat, targetMat);
+      if (objYAngle != 0) quat.rotateY(targetQuat, targetQuat, objYAngle * Math.PI/180);
+      if (objXAngle != 0) quat.rotateX(targetQuat, targetQuat, objXAngle * Math.PI/180);
+      if (objZAngle != 0) quat.rotateZ(targetQuat, targetQuat, objZAngle * Math.PI/180);
+      // normalize
+      quat.normalize(targetQuat, targetQuat);
+
+      // const rotation = quat.create();
+      // quat.rotationTo(rotation, base, targetQuat);      
+
+      this._quaternion = targetQuat;
+      this._useQuaternion = true;
+      this._inst.GetRuntime().UpdateRender();
+    }  
 
     GetScriptInterfaceClass() {
       return scriptInterface;
