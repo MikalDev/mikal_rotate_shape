@@ -3,9 +3,8 @@ module.exports = {
   addonType: "behavior",
   id: "mikal_rotate_shape",
   name: "Rotate 3D",
-  version: "1.9.0",
-  category:
-    "movements",
+  version: "1.10.0",
+  category: "movements",
   author: "mikal",
   website: "https://www.construct.net",
   documentation: "https://www.construct.net",
@@ -13,8 +12,7 @@ module.exports = {
   // icon: "icon.svg", // defaults to "icon.svg" if omitted
   // addonUrl: "https://www.construct.net/en/make-games/addons/####/XXXX", // displayed in auto-generated docs
   // githubUrl: "https://github.com/skymen/XXXX", // displays latest release version in auto-generated docs
-  fileDependencies: [
-  ],
+  fileDependencies: [],
   info: {
     Set: {
       IsOnlyOneAllowed: false,
@@ -28,82 +26,82 @@ module.exports = {
       desc: "X axis angle",
       type: "float",
       id: "angle-x",
-      options : {
+      options: {
         initialValue: 0,
-      }
+      },
     },
     {
       name: "Angle Y",
       desc: "Y axis angle",
       type: "float",
       id: "angle-y",
-      options : {
+      options: {
         initialValue: 0,
-      }
+      },
     },
     {
       name: "Angle Z",
       desc: "Z axis angle",
       type: "float",
       id: "angle-z",
-      options : {
+      options: {
         initialValue: 0,
-      }
+      },
     },
     {
       name: "Offset X",
       desc: "X center offset",
       type: "float",
       id: "offset-x",
-      options : {
+      options: {
         initialValue: 0,
-      }
+      },
     },
     {
       name: "Offset Y",
       desc: "Y center offset",
       type: "float",
       id: "offset-y",
-      options : {
+      options: {
         initialValue: 0,
-      }
+      },
     },
     {
       name: "Offset Z",
       desc: "Z center offset",
       type: "float",
       id: "offset-z",
-      options : {
+      options: {
         initialValue: 0,
-      }
+      },
     },
     {
       name: "Scale X",
       desc: "X scale",
       type: "float",
       id: "scale-x",
-      options : {
+      options: {
         initialValue: 1,
-      }
+      },
     },
     {
       name: "Scale Y",
       desc: "Y scale",
       type: "float",
       id: "scale-y",
-      options : {
+      options: {
         initialValue: 1,
-      }
+      },
     },
     {
       name: "Scale Z",
       desc: "Z scale",
       type: "float",
       id: "scale-z",
-      options : {
+      options: {
         initialValue: 1,
-      }
-    }
+      },
+    },
   ],
   aceCategories: {
     general: "General",
@@ -321,12 +319,33 @@ module.exports = {
         },
       ],
       listName: "Rotate towards position",
-      displayText: "{my}: Rotate towards position [i]{0}, {1}, {2}[/i], object angle [i]{3}, {4}, {5}[/i] up: [i]{6}, {7}, {8}[/i]",
+      displayText:
+        "{my}: Rotate towards position [i]{0}, {1}, {2}[/i], object angle [i]{3}, {4}, {5}[/i] up: [i]{6}, {7}, {8}[/i]",
       description: "Rotate towards position",
     },
+    EnableFragLight: {
+      // The category of the action as it appears in the add action dialog
+      category: "general",
+      forward: "_EnableFragLight",
+      autoScriptInterface: true,
+      highlight: true,
+      deprecated: false,
+      isAsync: false,
+      params: [
+        {
+          id: "enable",
+          name: "Enable",
+          desc: "Enable fragment lighting",
+          type: "boolean",
+          value: true,
+        },
+      ],
+      listName: "Enable fragment lighting",
+      displayText: "{my}: Enable fragment lighting [i]{0}[/i]",
+      description: "Enable fragment lighting",
+    },
   },
-  Cnds: {
-  },
+  Cnds: {},
   Exps: {
     AngleX: {
       // The category of the action as it appears in the expression picker
@@ -448,6 +467,6 @@ module.exports = {
       returnType: "string",
       params: [],
       description: "Get the quaternion as JSON string",
-    }
+    },
   },
 };
