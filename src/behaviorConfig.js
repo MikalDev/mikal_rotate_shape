@@ -3,7 +3,7 @@ module.exports = {
   addonType: "behavior",
   id: "mikal_rotate_shape",
   name: "Rotate 3D",
-  version: "1.10.0",
+  version: "1.11.0",
   category: "movements",
   author: "mikal",
   website: "https://www.construct.net",

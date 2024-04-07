@@ -24,6 +24,11 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
                 this._zScale = 1;
             }
 
+            const angle = this._inst.GetWorldInfo().GetAngle();
+            if (angle != 0) {
+                this._zAngle = -angle * (180 / Math.PI);
+            }
+
             const quat = globalThis.glMatrix.quat;
             this._quaternion = quat.create();
             this._useQuaternion = false;
