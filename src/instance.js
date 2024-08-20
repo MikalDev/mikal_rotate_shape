@@ -70,7 +70,7 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
                 }
                 const x = wi.GetX() + xOff;
                 const y = wi.GetY() + yOff;
-                const z = wi.GetZElevation() + zOff;
+                const z = wi.GetTotalZElevation() + zOff;
                 const width = wi.GetWidth();
                 const height = wi.GetHeight();
                 let zHeight = this._sdkInst._zHeight;
@@ -275,7 +275,7 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
             const target = vec3.fromValues(x, y, z);
             const posX = this._inst.GetWorldInfo().GetX();
             const posY = this._inst.GetWorldInfo().GetY();
-            const posZ = this._inst.GetWorldInfo().GetZElevation();
+            const posZ = this._inst.GetWorldInfo().GetTotalZElevation();
             const pos = vec3.fromValues(posX, posY, posZ);
             const targetMat = mat4.create();
             const upVec = vec3.fromValues(upX, upY, upZ);
