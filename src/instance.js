@@ -46,9 +46,19 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
                 const modelRotate = mat4.create();
                 const wi = this.GetWorldInfo();
                 const tmpProjection = mat4.create();
-
-                if (behInst._sdkInst._fragLight)
-                    mat4.copy(tmpProjection, renderer._matP);
+                const setVertexShaderModelRotateEnable = (renderer, enable, modelRotate) => {
+                        const gl = renderer._gl
+                        const batchState = renderer._batchState
+                        const shaderProgram = batchState.currentShader._shaderProgram
+                    
+                        if (modelRotate) {
+                            this.locUModelRotate = globalThis.uniformCache.getLocation(gl, shaderProgram, "uModelRotate")
+                            gl.uniformMatrix4fv(this.locUModelRotate, false, modelRotate)
+                        }
+                        this.locUModelRotateEnable = globalThis.uniformCache.getLocation(gl, shaderProgram, "uModelRotateEnable")
+                        gl.uniform1f(this.locUModelRotateEnable, enable)
+                      }
+            
 
                 mat4.copy(tmpModelView, renderer._matMV);
                 // Get behavior instance data
@@ -92,24 +102,15 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
                     [xScale, yScale, zScale],
                     [x, y, z + zHeight / 2]
                 );
-                if (behInst._sdkInst._fragLight)
-                    mat4.copy(behInst._sdkInst._modelRotate, modelRotate);
+                setVertexShaderModelRotateEnable(renderer, 1, modelRotate);
+
                 mat4.multiply(modelRotate, tmpModelView, modelRotate);
-                if (behInst._sdkInst._fragLight)
-                    mat4.multiply(modelRotate, renderer._matP, modelRotate);
                 renderer.SetModelViewMatrix(modelRotate);
-                if (behInst._sdkInst._fragLight) {
-                    const encodedModelRotate = mat4.clone(
-                        behInst._sdkInst._modelRotate
-                    );
-                    encodedModelRotate[3] = encodedModelRotate[12] + 11000000;
-                    renderer.SetProjectionMatrix(encodedModelRotate);
-                }
 
                 this._oldDraw(renderer);
+                renderer.EndBatch();
                 renderer.SetModelViewMatrix(tmpModelView);
-                if (behInst._sdkInst._fragLight)
-                    renderer.SetProjectionMatrix(tmpProjection);
+                setVertexShaderModelRotateEnable(renderer, 0, null);
             };
 
             if (properties) {
